@@ -363,13 +363,13 @@
 
   initialFormula = paste("yBag~", 
                paste(colnames(modelData)[ if (nMandatoryInteractions>0) mandatoryInteractions else featureMax ], 
-                     collapse = " + "));
+                     collapse = " + "),"+0");
   if (classify) {
     lmInit = glm(formula(initialFormula), data = modelData, family=binomial(link='logit'));
     lmUpper = glm(yBag~., data=modelData, family=binomial(link="logit"))
   } else {
     lmInit = lm(formula(initialFormula), data = modelData);
-    lmUpper = lm(yBag~., data = modelData)
+    lmUpper = lm(yBag~.+0, data = modelData)
   }
 
   ## forward model selection
